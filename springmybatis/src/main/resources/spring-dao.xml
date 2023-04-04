@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        ">
+
+    <!--DataSource使用Spring的数据源替换mybatis的配置,mybatis-config中相关配置就可以删去-->
+    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/user?useSSL=true"/>
+        <property name="username" value="root"/>
+        <property name="password"  value="huanghongtao520"/>
+    </bean>
+
+    <!--sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <!--绑定mybatis配置文件-->
+        <property name="configLocation" value="mybatis-config.xml"/>
+        <!--把映射文件注册到mybatis中-->
+        <property name="mapperLocations" value="UserMapper.xml"/>
+    </bean>
+
+    <bean id="userMapper" class="org.example.mapper.UserMapperImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
+
+<!--    &lt;!&ndash;SqlSessionTemplate就是我们使用的SqlSession&ndash;&gt;-->
+<!--    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg ref="sqlSessionFactory"/>-->
+<!--    </bean>-->
+
+    <!--配置声明式事务-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+    <!--结合AOP实现事务的织入-->
+    <!--配置事务的类-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--给哪些方法配置事务-->
+        <!--配置事务的传播特性,增删改的方法默认的propagation=required，
+        没有事务新建事务，查询不需要事务 -->
+        <tx:attributes>
+            <tx:method name="queryAll" read-only="true"/>
+            <tx:method name="insertUser" />
+            <tx:method name="deleteUser" />
+        </tx:attributes>
+    </tx:advice>
+    <!--配置事务切入点,mapper包下的所有类的所有方法采用这个事务-->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* org.example.mapper.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+
+</beans>
