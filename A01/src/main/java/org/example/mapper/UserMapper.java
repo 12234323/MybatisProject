@@ -20,7 +20,7 @@ public interface UserMapper {
     int insertUser(User user);
 
     //分页
-    List<User> queryUserByLimit(int start,int end);
+    List<User> queryUserByLimit(Map<String,Object> map);
 
 
 }

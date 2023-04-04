@@ -54,6 +54,16 @@ public class MyTest {
         for (User user:userList2)
             System.out.println(user);
 
+        System.out.println("================================");
+        System.out.println("分页");
+        Map<String,Object> map1=new HashMap<String, Object>();
+        map1.put("start",1);
+        map1.put("pagesize",2);
+        //分页 start表示从哪个开始，默认是0，end表示每夜显示几个
+        List<User> userList3 = mapper.queryUserByLimit(map1);
+        for (User user:userList3)
+            System.out.println(user);
+
         //增删改后数据库连接要关闭
         sqlSession.close();
 
