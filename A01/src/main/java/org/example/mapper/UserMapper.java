@@ -15,4 +15,9 @@ public interface UserMapper {
 
     //模糊查询
     List<User> queryUserByLike(String name);
+
+    //插入用户
+    int insertUser(User user);
+
+
 }

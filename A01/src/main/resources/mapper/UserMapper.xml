@@ -16,4 +16,9 @@
     <select id="queryUserByLike" resultType="user">
         select * from user where name like "_"#{name}
     </select>
+
+    <insert id="insertUser" parameterType="user">
+        insert into user value (#{id},#{name},#{password})
+    </insert>
+
 </mapper>

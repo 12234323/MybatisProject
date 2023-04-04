@@ -47,5 +47,8 @@ public class MyTest {
         System.out.println("================================");
 
 
+        //增删改后数据库连接要关闭
+        sqlSession.close();
+
     }
 }
