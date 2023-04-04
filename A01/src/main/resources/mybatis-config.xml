@@ -35,7 +35,7 @@
     </environments>
     <!--xml文件需要在配置文件中注册,推荐使用resource其他的都需要在同一个包下。-->
     <mappers>
-        <!--resource使用斜杠，易错-->
-        <mapper resource="mapper/UserMapper.xml"/>
+        <!--resource使用斜杠，易错,不能使用*通配符-->
+       <mapper resource="mapper/UserMapper.xml"/>
     </mappers>
 </configuration>

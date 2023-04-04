@@ -1,5 +1,7 @@
 package org.example.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.example.pojo.User;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public interface UserMapper {
     int updatePwd(Map<String,Object> map);
 
     //模糊查询
+    @Select("select * from user where name like \"_\"#{name}")
     List<User> queryUserByLike(String name);
 
     //插入用户
@@ -22,5 +25,9 @@ public interface UserMapper {
     //分页
     List<User> queryUserByLimit(Map<String,Object> map);
 
+    //分页，采用注解形式,当有多个参数时，应该使用@Param参数，否则报错
+    //只有一个参数可以不用写@Param
+    @Select("select * from user limit #{start},#{pagesize}")
+    List<User> queryUserByLimit1(@Param("start") int start, @Param("pagesize") int pagesize);
 
 }

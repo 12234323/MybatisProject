@@ -18,9 +18,9 @@
         update user set pwd=#{password} where id=#{id};
     </update>
 
-    <select id="queryUserByLike" resultType="user">
+    <!--<select id="queryUserByLike" resultType="user">
         select * from user where name like "_"#{name}
-    </select>
+    </select>-->
 
     <insert id="insertUser" parameterType="user">
         insert into user value (#{id},#{name},#{password})

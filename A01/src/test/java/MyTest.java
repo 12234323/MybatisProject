@@ -60,7 +60,7 @@ public class MyTest {
         map1.put("start",1);
         map1.put("pagesize",2);
         //分页 start表示从哪个开始，默认是0，end表示每夜显示几个
-        List<User> userList3 = mapper.queryUserByLimit(map1);
+        List<User> userList3 = mapper.queryUserByLimit1(1,2);
         for (User user:userList3)
             System.out.println(user);
 
