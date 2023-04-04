@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--在配置文件中通过类似<properties name="driver" value=${driver}}使用-->
+    <properties resource="db.properties"/>
+
+    <settings>
+        <!--开启缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--开启驼峰命名 将数据库中last_name映射为实体类中lastName-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--默认别名为首字母小写-->
+        <package name="org.example.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <!--可以定义多个环境，切换-->
+        <environment id="development">
+            <!--事务管理器有两种JDBC和managed-->
+            <transactionManager type="JDBC"/>
+            <!--数据源有POOLED和C3p0，dbcp等-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/user?useSSL=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="huanghongtao520"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--xml文件需要在配置文件中注册,推荐使用resource其他的都需要在同一个包下。-->
+    <mappers>
+        <!--resource使用斜杠，易错-->
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+</configuration>
