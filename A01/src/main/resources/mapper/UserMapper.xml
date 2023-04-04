@@ -5,7 +5,12 @@
 <!--namespace绑定对应的mapper接口-->
 <mapper namespace="org.example.mapper.UserMapper">
 
-    <select id="queryAll" resultType="user">
+    <resultMap id="map1" type="user">
+        <!--其它相同的字段不用写-->
+        <!--将实体类中password属性和数据库中pwd对应起来-->
+        <result property="password" column="pwd"/>
+    </resultMap>
+    <select id="queryAll" resultMap="map1">
         select * from user;
     </select>
 

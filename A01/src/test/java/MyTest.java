@@ -46,6 +46,13 @@ public class MyTest {
             System.out.println(user);
         System.out.println("================================");
 
+        System.out.println("当实体类和数据库对应字段不一致会输出null");
+        System.out.println("User(id=1, name=小明, password=null)数据库中字段为pwd，user类获取不到，为null");
+        System.out.println("采用ResultMap解决");
+        List<User> userList2=mapper.queryAll();
+        System.out.println("查询所有用户");
+        for (User user:userList2)
+            System.out.println(user);
 
         //增删改后数据库连接要关闭
         sqlSession.close();
