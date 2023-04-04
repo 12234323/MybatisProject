@@ -2,7 +2,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.example.mapper.StudentMapper;
 import org.example.mapper.UserMapper;
+import org.example.pojo.Student;
+import org.example.pojo.Teacher;
 import org.example.pojo.User;
 import org.example.utils.MybatisUtils;
 
@@ -60,9 +63,28 @@ public class MyTest {
         map1.put("start",1);
         map1.put("pagesize",2);
         //分页 start表示从哪个开始，默认是0，end表示每夜显示几个
-        List<User> userList3 = mapper.queryUserByLimit1(1,2);
+        List<User> userList3 = mapper.queryUserByLimit(map1);
         for (User user:userList3)
             System.out.println(user);
+
+        System.out.println("================================");
+        System.out.println("多对一：多个学生对一个老师，association");
+        StudentMapper mapper1 = sqlSession.getMapper(StudentMapper.class);
+        //List<Student> studentList = mapper1.queryAll();
+        //for (Student student:studentList)
+            //System.out.println(student);
+/* 输出结果：Student{id=1, name='黄宏涛', teacher=Teacher(id=1, name=教员)}
+        Student{id=2, name='刘亦菲', teacher=Teacher(id=1, name=教员)}*/
+
+        System.out.println("================================");
+        System.out.println("一对多：一个老师对多个学生association");
+        for (Teacher teacher : mapper1.queryAllTeacher()) {
+            System.out.println(teacher);
+        }
+/*        一对多：一个老师对多个学生association
+        Teacher{id=1, name='教员', students=[Student{id=1, name='黄宏涛', t_id=0}]}
+        Teacher{id=2, name='教员', students=[Student{id=2, name='刘亦菲', t_id=0}]}*/
+
 
         //增删改后数据库连接要关闭
         sqlSession.close();

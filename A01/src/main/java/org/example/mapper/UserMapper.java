@@ -22,12 +22,13 @@ public interface UserMapper {
     //插入用户
     int insertUser(User user);
 
-    //分页
+    //分页,不能直接传入两个参数，否则报错。
     List<User> queryUserByLimit(Map<String,Object> map);
 
     //分页，采用注解形式,当有多个参数时，应该使用@Param参数，否则报错
     //只有一个参数可以不用写@Param
     @Select("select * from user limit #{start},#{pagesize}")
     List<User> queryUserByLimit1(@Param("start") int start, @Param("pagesize") int pagesize);
+
 
 }
