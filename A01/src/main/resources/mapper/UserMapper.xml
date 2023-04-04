@@ -26,4 +26,8 @@
         insert into user value (#{id},#{name},#{password})
     </insert>
 
+    <select id="queryUserByLimit">
+        select * from user limit #{start},#{end};
+    </select>
+
 </mapper>

@@ -19,5 +19,8 @@ public interface UserMapper {
     //插入用户
     int insertUser(User user);
 
+    //分页
+    List<User> queryUserByLimit(int start,int end);
+
 
 }

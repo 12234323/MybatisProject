@@ -6,6 +6,7 @@
 <mapper namespace="org.example.mapper.UserMapper">
 
     <resultMap id="map1" type="user">
+        <!--其它相同的字段不用写-->
         <!--将实体类中password属性和数据库中pwd对应起来-->
         <result property="password" column="pwd"/>
     </resultMap>
