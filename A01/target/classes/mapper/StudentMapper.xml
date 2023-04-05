@@ -15,7 +15,7 @@
         <result property="id" column="sid"/>
         <result property="name" column="sname"/>
         <!--association中用javaType获取对象类型-->
-        <association property="teacher" javaType="Teacher"  >
+        <association property="teacher" javaType="Teacher" >
             <result property="id" column="tid"/>
             <result property="name" column="tname"/>
         </association>
