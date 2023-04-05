@@ -11,6 +11,8 @@ import org.example.utils.MybatisUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +86,33 @@ public class MyTest {
 /*        一对多：一个老师对多个学生association
         Teacher{id=1, name='教员', students=[Student{id=1, name='黄宏涛', t_id=0}]}
         Teacher{id=2, name='教员', students=[Student{id=2, name='刘亦菲', t_id=0}]}*/
+
+        System.out.println("================================");
+        System.out.println("动态SQL");
+        //使用动态SQL语句
+        List<User> userList4 = mapper.queryAllByDynamicSql(3);
+        for (User user:userList4)
+            System.out.println(user);
+
+        System.out.println("================================");
+        System.out.println("动态SQL,choose,when,otherwise");
+        Map<String ,Object> map2=new HashMap<String, Object>();
+        map2.put("id",1);
+        map2.put("name","黄宏涛");
+        map2.put("tId",1);
+        User user1 = mapper.queryAllByDynamicSql1(map2);
+        //使用动态SQL语句
+        System.out.println(user1);
+
+        System.out.println("================================");
+        System.out.println("动态SQL,foreach");
+        List<Integer> idlist=new ArrayList<Integer>();
+        idlist.add(1);
+        idlist.add(2);
+        idlist.add(3);
+        for (User user : mapper.queryAllByDynamicSql3(idlist)) {
+            System.out.println(user);
+        }
 
 
         //增删改后数据库连接要关闭

@@ -30,5 +30,13 @@ public interface UserMapper {
     @Select("select * from user limit #{start},#{pagesize}")
     List<User> queryUserByLimit1(@Param("start") int start, @Param("pagesize") int pagesize);
 
+    //动态SQL
+    List<User> queryAllByDynamicSql(int id);
+
+    //动态SQL，choose ，when ,otherwise
+    User queryAllByDynamicSql1(Map<String,Object> map);
+
+    //foreach语句，对集合进行遍历
+    List<User> queryAllByDynamicSql3(List<Integer> idlist );
 
 }
