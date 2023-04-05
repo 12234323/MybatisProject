@@ -123,13 +123,24 @@ public class MyTest {
         }
 
         System.out.println("================================");
-        System.out.println("二级缓存，需要在配置文件中添加配置<cache/>");
+        sqlSession.close();
+        System.out.println("关闭之前的会话sqlsession");
+        System.out.println("================================");
+        System.out.println("二级缓存，需要在Mapper文件中添加配置<cache/>，不是配置文件");
+        System.out.println("开启新的sqlsession");
+        System.out.println("二级缓存必须是同一个mapper映射文件下的查询方法才可以成功使用缓存");
+        System.out.println("映射文件中，对于经常更新的select标签，可以用useCache=False关闭缓存");
+        SqlSession sqlSession1= MybatisUtils.getSqlSession();
+        System.out.println("开启新的sqlsession");
+        UserMapper mapper2 = sqlSession1.getMapper(UserMapper.class);
+        List<User> userList5 = mapper2.queryAll();
+        for (User user:userList5)
+            System.out.println(user);
 
-
-
+        sqlSession.close();
 
         //增删改后数据库连接要关闭
-        sqlSession.close();
+
 
     }
 }
