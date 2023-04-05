@@ -5,6 +5,9 @@
 <!--namespace绑定对应的mapper接口-->
 <mapper namespace="org.example.mapper.UserMapper">
 
+    <!--开启二级缓存-->
+    <cache />
+
     <resultMap id="map1" type="user">
         <!--其它相同的字段不用写-->
         <!--将实体类中password属性和数据库中pwd对应起来-->

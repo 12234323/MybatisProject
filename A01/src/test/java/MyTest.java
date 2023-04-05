@@ -114,6 +114,19 @@ public class MyTest {
             System.out.println(user);
         }
 
+        System.out.println("================================");
+        System.out.println("一级缓存，默认开启");
+        System.out.println("前面已经查询过该方法，若两次查询间没有增删改操作，再次查询时，直接从缓存中获取");
+        System.out.println("sqlSession.clearCache();可以用该语句清除缓存，则会再次查询");
+        for (User user : mapper.queryAll()) {
+            System.out.println(user);
+        }
+
+        System.out.println("================================");
+        System.out.println("二级缓存，需要在配置文件中添加配置<cache/>");
+
+
+
 
         //增删改后数据库连接要关闭
         sqlSession.close();
